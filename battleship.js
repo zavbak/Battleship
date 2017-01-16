@@ -73,7 +73,7 @@ var view ={
 
 
 function testView() {
-    view.displayMessage("Test display message!!!")
+    view.displayMessage("Test display message  !!!")
     view.displayHit("12")
     view.displayMiss("33")
 }

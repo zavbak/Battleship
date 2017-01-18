@@ -20,6 +20,34 @@ function initTable() {
     }
 }
 
+function parseGuess(guess) {
+    var alphabet = ["A", "B", "C", "D", "E", "F", "G"];
+
+    if (guess === null || guess.length != 2) {
+        alert("Oops, please enter a letter and letter and number on the board.");
+    } else {
+        firstChair = guess.charAt(0);
+        var row = alphabet.indexOf(firstChair);
+        var colomn = guess.charAt(1);
+
+        if (isNaN(row) || isNaN(colomn)) {
+            alert("Oops, that isn't on the board.");
+        } else if (row < 0 || row >= model.boardSize ||
+            colomn < 0 || colomn >= model.boardSize) {
+
+            alert("Oops, that off on the board.");
+        } else {
+
+            return row + colomn;
+        }
+
+    }
+
+
+    return null;
+
+}
+
 
 function convert(coordinat) {
     var oneChart = coordinat.charAt(0);
@@ -115,6 +143,28 @@ var model = {
 
         return true;
     }
+
+
+}
+
+
+var controller = {
+    guesses: 0,
+
+    processGuess: function (guess) {
+        var location = parseGuess(guess);
+        if (location) {
+            this.guesses++;
+            var hit = model.fire(location);
+
+            if (hit && model.shipsSunk === model.numShips) {
+                view.displayMessage("You sank all my battleship, in " +
+                    this.guesses + " guesses");
+            }
+
+        }
+    }
+
 
 }
 
